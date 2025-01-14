@@ -1,0 +1,2 @@
+extends:
+  - https://cdn.prod.spsc.io/api/design/standards/rulesets/custom/latest/sps-api-standards.spectral.yml

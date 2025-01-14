@@ -1,0 +1,126 @@
+databaseChangeLog:
+  ## Add document_type table
+  - changeSet:
+      id: demo-schema-000001-1
+      author: plachance
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: document_type_PK
+                  name: id
+                  type: BIGSERIAL
+              - column:
+                  constraints:
+                    nullable: false
+                  name: code
+                  type: VARCHAR(10)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: visible
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creationTimestamp
+                  type: TIMESTAMP(3) WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: lastUpdateTimestamp
+                  type: TIMESTAMP(3) WITH TIME ZONE
+            tableName: document_type
+            tablespace: pg_default
+            schemaName: ${database.defaultSchemaName}
+
+  - changeSet:
+      id: demo-schema-000001-2
+      author: plachance
+      changes:
+        - sql:
+            comment: Alter document_type table to set OWNER to demo
+            endDelimiter: ''
+            splitStatements: false
+            sql: ALTER TABLE ${database.defaultSchemaName}.document_type OWNER to demo;
+
+  - changeSet:
+      id: demo-schema-000001-3
+      author: plachance
+      changes:
+        - sql:
+            comment: Unique index on code
+            endDelimiter: ''
+            splitStatements: false
+            sql: CREATE UNIQUE INDEX document_type_idx ON ${database.defaultSchemaName}.document_type ("code");
+
+  ## Add file_type table
+  - changeSet:
+      id: demo-schema-000001-4
+      author: plachance
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: file_type_PK
+                  name: id
+                  type: BIGSERIAL
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(50)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: documentTypeCode
+                  type: VARCHAR(10)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: visible
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creationTimestamp
+                  type: TIMESTAMP(3) WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: lastUpdateTimestamp
+                  type: TIMESTAMP(3) WITH TIME ZONE
+            tableName: file_type
+            tablespace: pg_default
+            schemaName: ${database.defaultSchemaName}
+
+  - changeSet:
+      id: demo-schema-000001-5
+      author: plachance
+      changes:
+        - sql:
+            comment: Alter file_type table to set OWNER to demo
+            endDelimiter: ''
+            splitStatements: false
+            sql: ALTER TABLE ${database.defaultSchemaName}.file_type OWNER to demo;
+
+  - changeSet:
+      id: demo-schema-000001-6
+      author: plachance
+      changes:
+        - sql:
+            comment: Unique index on name
+            endDelimiter: ''
+            splitStatements: false
+            sql: CREATE UNIQUE INDEX file_type_idx ON ${database.defaultSchemaName}.file_type ("name");

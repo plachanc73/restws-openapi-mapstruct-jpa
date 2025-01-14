@@ -1,0 +1,22 @@
+########################################################################
+# Spring
+########################################################################
+spring:
+  output:
+    ansi:
+      enabled: detect
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  config: classpath:logback-local.xml
+  level:
+    com:
+      spscommerce: debug
+      amazonaws: debug
+    org:
+      hibernate:
+        SQL: debug

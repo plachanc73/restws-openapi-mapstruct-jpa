@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: data-01
+      author: plachance
+      changes:
+        - sqlFile:
+            dbms: 'postgresql'
+            path: classpath:/db/changelog/data/basic_scenario_file_type.sql
+            stripComments: true

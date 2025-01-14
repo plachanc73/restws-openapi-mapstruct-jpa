@@ -1,0 +1,136 @@
+---
+openapi: "3.0.3"
+info:
+  title: Demo Service
+  description: Demo RESTful services
+  version: 0.0.0
+
+servers:
+  - url: http://localhost:8080/demo
+    description: local
+
+security:
+  - bearerAuth: [ ]
+tags:
+  - name: Demo
+    description: Demo RESTful services Controller
+
+paths:
+  /v1/document-type/search:
+    post:
+      operationId: /v1SearchDocumentType
+      summary: Search for document types
+      description: An endpoint that returns a list of visible document types
+      tags:
+        - DocumentType
+      responses:
+        200:
+          description: The DocumentType Search Results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentTypeSearchResult'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /v1/file-type/search:
+    post:
+      operationId: /v1SearchFileType
+      summary: Search for file types
+      description: An endpoint that returns a list of visible file types
+      tags:
+        - FileType
+      responses:
+        200:
+          description: The FileType Search Results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileTypeSearchResult'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    DocumentType:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+    DocumentTypeSearchResult:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentType'
+        totalResults:
+          type: integer
+          description: The total of document types found.
+    FileType:
+      type: object
+      properties:
+        name:
+          type: string
+        documentTypeCode:
+          type: string
+    FileTypeSearchResult:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileType'
+        totalResults:
+          type: integer
+          description: The total of file types found.
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Give more info on the error
+        title:
+          type: string
+          description: Title of the error
+        status:
+          type: integer
+          format: int32
+          description: HTTP Code
+        detail:
+          type: string
+          description: Brief message explaining the error
+          example: Brief message explaining the error.
+        instance:
+          type: string
+          description: The endpoint the client is accessing
+      required:
+        - code
+        - message
+
+  responses:
+    Success:
+      description: The request was successful
+    BadRequest:
+      description: Malformed request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Can't found the specified file
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'

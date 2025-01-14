@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: schema-1
+      author: plachance
+      changes:
+        - sql:
+            comment: Create the schema demo
+            endDelimiter: ''
+            splitStatements: false
+            sql: CREATE SCHEMA demo;
+  - include:
+      file: classpath:/db/changelog/db.changelog-tests.yaml
+  - include:
+      file: classpath:/db/changelog/db.demo-schema-changelog.yaml
+  - include:
+      file: classpath:/db/changelog/db.mock-data-changelog.yaml

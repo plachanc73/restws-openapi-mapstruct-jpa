@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: TestOnly-1
+      author: plachance
+      context: test
+      rollback: DROP ROLE demo;
+      changes:
+        - sql:
+            comment: Creates the role demo (for integration tests only)
+            sql: CREATE ROLE demo
