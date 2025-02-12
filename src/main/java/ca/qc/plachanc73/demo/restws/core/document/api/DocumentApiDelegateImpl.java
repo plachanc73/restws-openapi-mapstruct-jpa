@@ -90,7 +90,7 @@ public class DocumentApiDelegateImpl implements DocumentApiDelegate {
     }
 
     @Override
-    public ResponseEntity<DocumentSearchResult> v1SearchDocument(DocumentSearchRequest documentSearchRequest) {
+    public ResponseEntity<DocumentSearchResult> v1SearchDocuments(DocumentSearchRequest documentSearchRequest) {
         validateSearchRequest(documentSearchRequest);
 
         DocumentSearchRequestDto documentSearchRequestDto =

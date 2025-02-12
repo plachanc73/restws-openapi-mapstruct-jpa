@@ -22,7 +22,7 @@ public class DocumentTypeApiDelegateImpl implements DocumentTypeApiDelegate {
     }
 
     @Override
-    public ResponseEntity<DocumentTypeSearchResult> v1SearchDocumentType() {
+    public ResponseEntity<DocumentTypeSearchResult> v1GetDocumentTypes() {
 
         DocumentTypeSearchResultDto documentTypeSearchResultDto = documentTypeSearchService.searchDocumentType();
 

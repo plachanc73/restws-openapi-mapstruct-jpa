@@ -6,10 +6,7 @@ import ca.qc.plachanc73.demo.restws.core.filetype.service.FileTypeSearchService;
 import ca.qc.plachanc73.demo.restws.core.filetype.service.dto.FileTypeDto;
 import ca.qc.plachanc73.demo.restws.core.filetype.service.dto.FileTypeSearchResultDto;
 import ca.qc.plachanc73.demo.restws.dto.FileTypeSearchResult;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -68,7 +65,8 @@ class SearchFileTypeMvcIntegrationTest {
         // No generic setup for now
     }
 
-    @DisplayName("Given a valid request, when the service Search File Type is called then it returns the File Types found. (HTTP Code 200)")
+    @DisplayName(
+            "Given a valid request, when the service Search File Type is called then it returns the File Types found. (HTTP Code 200)")
     @Test
     void scenarioGood1() throws Exception {
         //Given - Mock the service
@@ -76,12 +74,14 @@ class SearchFileTypeMvcIntegrationTest {
         when(fileTypeSearchService.searchFileType()).thenReturn(fileTypeSearchResultDto);
 
         //Given - Build the expected response
-        FileTypeSearchResult expectedFileTypeSearchResult = new FileTypeSearchResultMapperImpl().fileTypeSearchResultDtoToFileTypeSearchResult(fileTypeSearchResultDto);
+        FileTypeSearchResult expectedFileTypeSearchResult =
+                new FileTypeSearchResultMapperImpl().fileTypeSearchResultDtoToFileTypeSearchResult(
+                        fileTypeSearchResultDto);
         String expectedJson = DefaultObjectMapper.getInstance().writeValueAsString(expectedFileTypeSearchResult);
 
         //When
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/demo/v1/file-type/search")
+                        .get("/demo/v1/file-types")
                         .characterEncoding(UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
                 )

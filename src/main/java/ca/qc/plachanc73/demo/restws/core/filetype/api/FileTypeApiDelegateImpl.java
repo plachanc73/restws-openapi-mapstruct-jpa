@@ -22,7 +22,7 @@ public class FileTypeApiDelegateImpl implements FileTypeApiDelegate {
     }
 
     @Override
-    public ResponseEntity<FileTypeSearchResult> v1SearchFileType() {
+    public ResponseEntity<FileTypeSearchResult> v1GetFileTypes() {
 
         FileTypeSearchResultDto fileTypeSearchResultDto = fileTypeSearchService.searchFileType();
 

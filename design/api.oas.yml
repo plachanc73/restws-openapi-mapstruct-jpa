@@ -17,10 +17,10 @@ tags:
     description: Demo RESTful services Controller
 
 paths:
-  /v1/document-type/search:
-    post:
-      operationId: /v1SearchDocumentType
-      summary: Search for document types
+  /v1/document-types:
+    get:
+      operationId: /v1GetDocumentTypes
+      summary: Get document types
       description: An endpoint that returns a list of document types
       tags:
         - DocumentType
@@ -35,10 +35,10 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /v1/file-type/search:
-    post:
-      operationId: /v1SearchFileType
-      summary: Search for file types
+  /v1/file-types:
+    get:
+      operationId: /v1GetFileTypes
+      summary: Get file types
       description: An endpoint that returns a list of file types
       tags:
         - FileType
@@ -53,9 +53,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /v1/document/search:
+  /v1/documents/search:
     post:
-      operationId: /v1SearchDocument
+      operationId: /v1SearchDocuments
       summary: Search Documents
       description: An endpoint that search documents
       tags:
@@ -76,7 +76,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /v1/document:
+  /v1/documents:
     post:
       operationId: /v1CreateDocument
       summary: Create Document
@@ -97,7 +97,7 @@ paths:
           $ref: '#/components/responses/Conflict'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /v1/document/{documentUUID}:
+  /v1/documents/{documentUUID}:
     get:
       operationId: /v1GetDocument
       summary: Get Document

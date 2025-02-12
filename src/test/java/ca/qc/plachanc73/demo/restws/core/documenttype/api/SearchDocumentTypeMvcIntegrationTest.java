@@ -6,10 +6,7 @@ import ca.qc.plachanc73.demo.restws.core.documenttype.service.DocumentTypeSearch
 import ca.qc.plachanc73.demo.restws.core.documenttype.service.dto.DocumentTypeDto;
 import ca.qc.plachanc73.demo.restws.core.documenttype.service.dto.DocumentTypeSearchResultDto;
 import ca.qc.plachanc73.demo.restws.dto.DocumentTypeSearchResult;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -68,7 +65,8 @@ class SearchDocumentTypeMvcIntegrationTest {
         // No generic setup for now
     }
 
-    @DisplayName("Given a valid request, when the service Search Document Type is called then it returns the Document Types found. (HTTP Code 200)")
+    @DisplayName(
+            "Given a valid request, when the service Search Document Type is called then it returns the Document Types found. (HTTP Code 200)")
     @Test
     void scenarioGood1() throws Exception {
         //Given - Mock the service
@@ -76,12 +74,14 @@ class SearchDocumentTypeMvcIntegrationTest {
         when(documentTypeSearchService.searchDocumentType()).thenReturn(documentTypeSearchResultDto);
 
         //Given - Build the expected response
-        DocumentTypeSearchResult expectedDocumentTypeSearchResult = new DocumentTypeSearchResultMapperImpl().documentTypeSearchResultDtoToDocumentTypeSearchResult(documentTypeSearchResultDto);
+        DocumentTypeSearchResult expectedDocumentTypeSearchResult =
+                new DocumentTypeSearchResultMapperImpl().documentTypeSearchResultDtoToDocumentTypeSearchResult(
+                        documentTypeSearchResultDto);
         String expectedJson = DefaultObjectMapper.getInstance().writeValueAsString(expectedDocumentTypeSearchResult);
 
         //When
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/demo/v1/document-type/search")
+                        .get("/demo/v1/document-types")
                         .characterEncoding(UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
