@@ -417,12 +417,12 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/design/api.oas.yml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/specs/api.oas.yml</inputSpec>
+                            <templateDirectory>${project.basedir}/src/main/resources/openapi/templates</templateDirectory>
                             <addCompileSourceRoot>true</addCompileSourceRoot>
-                            <modelPackage>ca.qc.plachanc73.demo.restws.dto</modelPackage>
                             <apiPackage>ca.qc.plachanc73.demo.restws.api</apiPackage>
+                            <modelPackage>ca.qc.plachanc73.demo.restws.dto</modelPackage>
                             <invokerPackage>ca.qc.plachanc73.demo.restws.handler</invokerPackage>
-
                             <generateApis>true</generateApis>
                             <generateApiTests>false</generateApiTests>
                             <generateModelDocumentation>true</generateModelDocumentation>
@@ -446,14 +446,13 @@
 
                             <configOptions>
                                 <performBeanValidation>true</performBeanValidation>
-                                <useTags>true
-                                </useTags> <!-- will generate 1 controller/api per tag in the openapi spec -->
+                                <useBeanValidation>true</useBeanValidation>
+                                <useTags>true</useTags> <!-- will generate 1 controller/api per tag in the openapi spec -->
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useJakartaEe>true</useJakartaEe>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                                 <delegatePattern>true</delegatePattern>
-                                <booleanGetterPrefix>get
-                                </booleanGetterPrefix> <!--We must put get because this is not validated by the ObjectValidator when there's a @NotNull annotation -->
+                                <booleanGetterPrefix>get</booleanGetterPrefix> <!--We must put get because this is not validated by the ObjectValidator when there's a @NotNull annotation -->
                                 <additionalModelTypeAnnotations>
                                     @lombok.Data
                                     @lombok.AllArgsConstructor
