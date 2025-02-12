@@ -11,6 +11,7 @@ servers:
 
 security:
   - bearerAuth: [ ]
+
 tags:
   - name: Demo
     description: Demo RESTful services Controller
@@ -20,7 +21,7 @@ paths:
     post:
       operationId: /v1SearchDocumentType
       summary: Search for document types
-      description: An endpoint that returns a list of visible document types
+      description: An endpoint that returns a list of document types
       tags:
         - DocumentType
       responses:
@@ -38,7 +39,7 @@ paths:
     post:
       operationId: /v1SearchFileType
       summary: Search for file types
-      description: An endpoint that returns a list of visible file types
+      description: An endpoint that returns a list of file types
       tags:
         - FileType
       responses:
@@ -52,6 +53,131 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+  /v1/document/search:
+    post:
+      operationId: /v1SearchDocument
+      summary: Search Documents
+      description: An endpoint that search documents
+      tags:
+        - Document
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSearchRequest'
+      responses:
+        200:
+          description: The Document Search Results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentSearchResult'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /v1/document:
+    post:
+      operationId: /v1CreateDocument
+      summary: Create Document
+      description: An endpoint that create a new document
+      tags:
+        - Document
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentUpsertRequest'
+      responses:
+        201:
+          description: The Document was created successfully.
+        400:
+          $ref: '#/components/responses/BadRequest'
+        409:
+          $ref: '#/components/responses/Conflict'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /v1/document/{documentUUID}:
+    get:
+      operationId: /v1GetDocument
+      summary: Get Document
+      description: An endpoint that get a document
+      tags:
+        - Document
+      parameters:
+        - in: path
+          name: documentUUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The Document UUID
+      responses:
+        200:
+          description: The document retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentGetResponse'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      operationId: /v1UpdateDocument
+      summary: Update Document
+      description: An endpoint that update a document
+      tags:
+        - Document
+      parameters:
+        - in: path
+          name: documentUUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The Document UUID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentUpsertRequest'
+      responses:
+        200:
+          description: The Document updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentGetResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          $ref: '#/components/responses/Conflict'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+        operationId: /v1DeleteDocument
+        summary: Delete Document
+        description: An endpoint that delete a document
+        tags:
+          - Document
+        parameters:
+          - in: path
+            name: documentUUID
+            required: true
+            schema:
+              type: string
+              format: uuid
+            description: The Document UUID
+        responses:
+          204:
+            description: The Document was deleted successfully.
+          404:
+            $ref: '#/components/responses/NotFound'
+          500:
+            $ref: '#/components/responses/InternalServerError'
 
 components:
   schemas:
@@ -60,8 +186,13 @@ components:
       properties:
         code:
           type: string
+          minLength: 3
+          maxLength: 5
+          format: /^[A-Z]{3,5}$/
         name:
           type: string
+          minLength: 1
+          maxLength: 255
     DocumentTypeSearchResult:
       type: object
       properties:
@@ -77,6 +208,8 @@ components:
       properties:
         name:
           type: string
+          minLength: 3
+          maxLength: 10
         documentTypeCode:
           type: string
     FileTypeSearchResult:
@@ -89,6 +222,148 @@ components:
         totalResults:
           type: integer
           description: The total of file types found.
+    DocumentUpsertRequest:
+      type: object
+      required:
+        - documentName
+        - documentTypeCode
+        - fileTypeName
+      properties:
+        documentName:
+          type: string
+          minLength: 1
+          maxLength: 255
+        documentTypeCode:
+          type: string
+          minLength: 3
+          maxLength: 5
+          format: /^[A-Z]{3,5}$/
+        fileTypeName:
+          type: string
+          minLength: 3
+          maxLength: 10
+        fileLocation:
+          type: string
+          minLength: 1
+          maxLength: 500
+        description:
+          type: string
+          minLength: 1
+          maxLength: 1000
+    DocumentSearchRequest:
+      type: object
+      properties:
+        criteria:
+          $ref: '#/components/schemas/DocumentSearchCriteria'
+    DocumentSearchCriteria:
+      type: object
+      properties:
+        page:
+          type: integer
+          minimum: 0
+        size:
+          type: integer
+          minimum: 0
+          maximum: 1000
+        sort:
+          type: string
+          enum:
+            - DOCUMENT_NAME_ASC
+            - DOCUMENT_NAME_DESC
+        filters:
+          type: object
+          properties:
+            documentTypeCodes:
+              type: array
+              description: Returns only documents having one of the given document type codes
+              items:
+                description: The document type code
+                type: string
+            fileTypeNames:
+              type: array
+              description: Returns only documents having one of the given file type names
+              items:
+                description: The file type name
+                type: string
+    DocumentSearchResult:
+      type: object
+      properties:
+        criteria:
+          $ref: '#/components/schemas/DocumentSearchCriteria'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentSearchResultItem'
+        totalResults:
+          type: integer
+          description: The total of documents found.
+    DocumentSearchResultItem:
+        type: object
+        properties:
+          documentUUID:
+            type: string
+            format: uuid
+          documentName:
+            type: string
+            minLength: 1
+            maxLength: 255
+          documentTypeCode:
+            type: string
+            minLength: 3
+            maxLength: 5
+            format: /^[A-Z]{3,5}$/
+          fileTypeName:
+            type: string
+            minLength: 3
+            maxLength: 10
+          fileLocation:
+            type: string
+            minLength: 1
+            maxLength: 500
+          description:
+            type: string
+            minLength: 1
+            maxLength: 1000
+          creationTimestamp:
+            type: string
+            format: date-time
+          lastUpdateTimestamp:
+            type: string
+            format: date-time
+    DocumentGetResponse:
+        type: object
+        properties:
+            documentUUID:
+              type: string
+              format: uuid
+            documentName:
+              type: string
+              minLength: 1
+              maxLength: 255
+            documentTypeCode:
+              type: string
+              minLength: 3
+              maxLength: 5
+              format: /^[A-Z]{3,5}$/
+            fileTypeName:
+              type: string
+              minLength: 3
+              maxLength: 10
+            fileLocation:
+              type: string
+              minLength: 1
+              maxLength: 500
+            description:
+              type: string
+              minLength: 1
+              maxLength: 1000
+            creationTimestamp:
+              type: string
+              format: date-time
+            lastUpdateTimestamp:
+              type: string
+              format: date-time
+
     Error:
       type: object
       properties:
@@ -118,6 +393,12 @@ components:
       description: The request was successful
     BadRequest:
       description: Malformed request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Conflicted request
       content:
         application/problem+json:
           schema:

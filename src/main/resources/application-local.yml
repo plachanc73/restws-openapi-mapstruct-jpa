@@ -14,9 +14,9 @@ spring:
 logging:
   config: classpath:logback-local.xml
   level:
-    com:
-      spscommerce: debug
-      amazonaws: debug
+    ca:
+      qc:
+        plachanc73: debug
     org:
       hibernate:
         SQL: debug

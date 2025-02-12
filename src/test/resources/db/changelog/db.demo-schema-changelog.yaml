@@ -124,3 +124,86 @@ databaseChangeLog:
             endDelimiter: ''
             splitStatements: false
             sql: CREATE UNIQUE INDEX file_type_idx ON ${database.defaultSchemaName}.file_type ("name");
+
+  ## Add document table
+  - changeSet:
+      id: demo-schema-000001-7
+      author: plachance
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: document_PK
+                  name: id
+                  type: BIGSERIAL
+              - column:
+                  constraints:
+                    nullable: false
+                  name: documentUUID
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: documentName
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: documentTypeCode
+                  type: VARCHAR(5)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: fileTypeName
+                  type: VARCHAR(10)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: fileLocation
+                  type: VARCHAR(500)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: VARCHAR(1000)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: visible
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creationTimestamp
+                  type: TIMESTAMP(3) WITH TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: lastUpdateTimestamp
+                  type: TIMESTAMP(3) WITH TIME ZONE
+            tableName: document
+            tablespace: pg_default
+            schemaName: ${database.defaultSchemaName}
+
+  - changeSet:
+      id: demo-schema-000001-8
+      author: plachance
+      changes:
+        - sql:
+            comment: Alter document table to set OWNER to demo
+            endDelimiter: ''
+            splitStatements: false
+            sql: ALTER TABLE ${database.defaultSchemaName}.document OWNER to demo;
+
+  - changeSet:
+      id: demo-schema-000001-9
+      author: plachance
+      changes:
+        - sql:
+            comment: Unique index on documentUUID
+            endDelimiter: ''
+            splitStatements: false
+            sql: CREATE UNIQUE INDEX document_uuid_idx ON ${database.defaultSchemaName}.document ("documentUUID");

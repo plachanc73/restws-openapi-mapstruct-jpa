@@ -9,10 +9,6 @@ management:
   endpoint:
     health:
       enabled: false
-  cloudwatch:
-    metrics:
-      export:
-        enabled: false
 
 spring:
   application:
@@ -24,12 +20,6 @@ spring:
   output:
     ansi:
       enabled: detect
-  cloud:
-    aws:
-      sqs:
-        enabled: false
-      s3:
-        enabled: false
   jpa:
     database-platform: ca.qc.plachanc73.demo.restws.config.hibernate.CustomPostgreSQLDialect
     hibernate:
@@ -45,8 +35,9 @@ spring:
     contexts: test # Must be test.  Liquibase will include change sets that create the database schema.
 logging:
   level:
-    com:
-      spscommerce: debug
+    ca:
+      qc:
+        plachanc73: debug
     org:
       hibernate:
         orm:

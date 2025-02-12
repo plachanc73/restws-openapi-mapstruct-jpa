@@ -5,5 +5,5 @@ databaseChangeLog:
       changes:
         - sqlFile:
             dbms: 'postgresql'
-            path: classpath:/db/changelog/data/basic_scenario_file_type.sql
+            path: classpath:/db/changelog/data/basic_scenario_insert_data.sql
             stripComments: true

@@ -1,3 +1,5 @@
+PROJECT_ID: restws-test
+
 ########################################################################
 # Management
 ########################################################################
@@ -14,10 +16,6 @@ management:
   endpoint:
     health:
       show-details: always
-  cloudwatch:
-    metrics:
-      export:
-        namespace: ${PROJECT_ID}
 
 ########################################################################
 # Spring
@@ -41,6 +39,9 @@ spring:
     database-platform: ca.qc.plachanc73.demo.restws.config.hibernate.CustomPostgreSQLDialect
     database: postgresql
     show_sql: true
+    hibernate:
+      naming:
+        physical-strategy: ca.qc.plachanc73.demo.restws.config.hibernate.CustomPhysicalNamingStrategy
     properties:
       hibernate:
         format_sql: true
@@ -52,19 +53,17 @@ spring:
             non_contextual_creation: true
         discriminator:
           ignore_explicit_for_joined: true
-    hibernate:
-      naming:
-        physical-strategy: ca.qc.plachanc73.demo.restws.config.hibernate.CustomPhysicalNamingStrategy
 
   datasource:
-    driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
+    driver-class-name: org.postgresql.Driver
     url: jdbc-secretsmanager:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
     username: ${DATABASE_USERNAME}
 
 logging:
   level:
-    com:
-      spscommerce: info
+    ca:
+      qc:
+        plachanc73: info
     org:
       hibernate:
         orm:
