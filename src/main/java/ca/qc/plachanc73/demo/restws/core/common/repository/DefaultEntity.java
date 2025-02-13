@@ -1,4 +1,4 @@
-package ca.qc.plachanc73.demo.restws.core.common.entity;
+package ca.qc.plachanc73.demo.restws.core.common.repository;
 
 import jakarta.persistence.*;
 import lombok.Getter;

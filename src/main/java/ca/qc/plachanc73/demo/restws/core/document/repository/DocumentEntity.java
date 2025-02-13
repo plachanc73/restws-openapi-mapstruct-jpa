@@ -1,6 +1,6 @@
 package ca.qc.plachanc73.demo.restws.core.document.repository;
 
-import ca.qc.plachanc73.demo.restws.core.common.entity.DefaultEntity;
+import ca.qc.plachanc73.demo.restws.core.common.repository.DefaultEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

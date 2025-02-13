@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class DocumentSearchCustomImpl implements DocumentSearchCustom {
 
     @PersistenceContext
