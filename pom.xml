@@ -21,25 +21,24 @@
     <version>${revision}</version>
 
     <name>restws-openapi-mapstruct-jpa</name>
-    <description>This application is a Spring Boot application that provides RESTful services</description>
+    <description>This application is a Spring Boot application that provides Demo RESTful services</description>
 
     <properties>
         <revision>local-SNAPSHOT</revision>
 
         <java.version>21</java.version>
         <maven.version>3.9</maven.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
-        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-        <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
 
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <lombok.version>1.18.32</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <commons-collections4.version>4.5.0-M3</commons-collections4.version>
+        <lombok.version>1.18.36</lombok.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
-        <hypersistence-utils-hibernate-62.version>3.7.5</hypersistence-utils-hibernate-62.version>
-        <logstash-logback-encode.version>7.4</logstash-logback-encode.version>
-        <commons-lang3.version>3.14.0</commons-lang3.version>
-        <commons-text.version>1.12.0</commons-text.version>
+        <hypersistence-utils-hibernate-63.version>3.9.1</hypersistence-utils-hibernate-63.version>
+        <logstash-logback-encode.version>8.0</logstash-logback-encode.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <commons-text.version>1.13.0</commons-text.version>
 
         <!-- OpenApi -->
         <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
@@ -47,13 +46,12 @@
         <swagger.version>2.2.26</swagger.version>
 
         <!-- TESTS -->
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-        <junit-jupiter.version>5.10.2</junit-jupiter.version>
-        <maven-pmd-plugin.version>3.22.0</maven-pmd-plugin.version>
-        <embedded-database-spring-test.version>2.5.1</embedded-database-spring-test.version>
-        <liquibase.version>4.27.0</liquibase.version>
-        <org.hibernate.version>6.4.8.Final</org.hibernate.version>
+        <junit-jupiter.version>5.11.4</junit-jupiter.version>
+        <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
+        <embedded-database-spring-test.version>2.6.0</embedded-database-spring-test.version>
+        <liquibase.version>4.31.0</liquibase.version>
+        <org.hibernate.version>6.6.7.Final</org.hibernate.version>
     </properties>
 
     <!--#########################################################################-->
@@ -63,7 +61,7 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.12.1</version>
+            <version>${maven-compiler-plugin.version}</version>
         </dependency>
 
         <!-- Spring-Boot -->
@@ -122,19 +120,14 @@
 
         <!-- Others -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${jakarta-validation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.18.2</version>
+            <version>${commons-collections4.version}</version>
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
@@ -174,8 +167,8 @@
         </dependency>
         <dependency>
             <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-62</artifactId>
-            <version>${hypersistence-utils-hibernate-62.version}</version>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
+            <version>${hypersistence-utils-hibernate-63.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
