@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.6</version>
+        <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -42,9 +42,9 @@
         <commons-text.version>1.12.0</commons-text.version>
 
         <!-- OpenApi -->
-        <openapi-generator-maven-plugin.version>7.3.0</openapi-generator-maven-plugin.version>
+        <openapi-generator-maven-plugin.version>7.11.0</openapi-generator-maven-plugin.version>
         <openapitools-jackson-databind-nullable.version>0.2.6</openapitools-jackson-databind-nullable.version>
-        <swagger.version>2.2.20</swagger.version>
+        <swagger.version>2.2.26</swagger.version>
 
         <!-- TESTS -->
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>

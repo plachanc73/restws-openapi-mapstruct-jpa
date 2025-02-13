@@ -83,11 +83,11 @@ public class DocumentSearchCustomImpl implements DocumentSearchCustom {
     private void applySort(DocumentSearchCriteriaDto searchCriteria, CriteriaQuery<?> query,
             CriteriaBuilder criteriaBuilder, Root<DocumentEntity> Document) {
         switch (searchCriteria.getSort()) {
-            case ASC:
+            case DOCUMENT_NAME_ASC:
                 query.orderBy(criteriaBuilder.asc(Document.get(DocumentEntity_.documentName)),
                         criteriaBuilder.asc(Document.get(DocumentEntity_.id)));
                 break;
-            case DESC:
+            case DOCUMENT_NAME_DESC:
                 query.orderBy(criteriaBuilder.desc(Document.get(DocumentEntity_.documentName)),
                         criteriaBuilder.desc(Document.get(DocumentEntity_.id)));
                 break;

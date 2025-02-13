@@ -12,9 +12,9 @@ import lombok.*;
 public class DocumentSearchCriteriaDto {
 
     public enum SortEnum {
-        ASC("DOCUMENT_NAME_ASC"),
+        DOCUMENT_NAME_ASC("DOCUMENT_NAME_ASC"),
 
-        DESC("DOCUMENT_NAME_DESC");
+        DOCUMENT_NAME_DESC("DOCUMENT_NAME_DESC");
 
         private String value;
 
